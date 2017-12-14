@@ -19,6 +19,7 @@ abstract class BaseFragment: Fragment(), MvpView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUp(view)
     }
 
     override fun onAttach(context: Context?) {

@@ -12,4 +12,10 @@ data class MyDatabase (
         val id: Long,
         val pack: String,
         val length: Long
-)
+) {
+        override fun equals(other: Any?): Boolean {
+                return id == (other as MyDatabase).id
+        }
+
+        override fun hashCode(): Int = id.toInt()
+}
