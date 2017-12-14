@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F6F6F6</color>
+    <color name="colorPrimaryDark">#d1d1d5</color>
+    <color name="colorAccent">#464656</color>
+    <color name="selected">#f93066</color>
+    <color name="swipe_favorite">#0288D1</color>
+    <color name="swipe_disable">#D32F2F</color>
+    <color name="swipe_to_posted">#43A047</color>
+    <color name="swipe_to_settings">#FFEB3B</color>
+    <color name="new_item">#FF9800</color>
+</resources>
