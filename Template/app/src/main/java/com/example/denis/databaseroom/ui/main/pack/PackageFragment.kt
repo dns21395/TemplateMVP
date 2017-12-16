@@ -46,6 +46,8 @@ class PackageFragment: BaseFragment(), PackageMvpView {
     override fun setUp(view: View?) {
         recyclerView.layoutManager = layoutManager
         recyclerView.setItemViewCacheSize(30)
+        recyclerView.isDrawingCacheEnabled = true
+        recyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, layoutManager.orientation))
         recyclerView.adapter = adapter
         adapter.setRecyclerView(recyclerView, layoutManager)
