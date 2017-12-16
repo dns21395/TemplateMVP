@@ -12,6 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import android.content.pm.PackageManager
 import android.util.Log
+import com.example.denis.databaseroom.utils.getApplicationName
 
 
 /**
@@ -45,7 +46,7 @@ class SplashPresenter<V: SplashMvpView>
                 try {
                     if(null != packageManager.getLaunchIntentForPackage(item.packageName)) {
                         Log.d(TAG, item.packageName)
-                        dataManager.insert(MyDatabase(0, item.packageName, item.packageName.length.toLong()))
+                        dataManager.insert(MyDatabase(0, item.packageName, getApplicationName(context, item.packageName), item.packageName.length.toLong()))
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

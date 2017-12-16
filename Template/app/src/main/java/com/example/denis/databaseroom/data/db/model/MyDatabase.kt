@@ -11,6 +11,7 @@ data class MyDatabase (
         @PrimaryKey(autoGenerate = true)
         val id: Long,
         val pack: String,
+        val applicationName: String,
         val length: Long
 ) {
         override fun equals(other: Any?): Boolean {

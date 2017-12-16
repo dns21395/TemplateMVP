@@ -16,8 +16,6 @@ import javax.inject.Inject
  * Created by denis on 14/12/2017.
  */
 class PackageFragment: BaseFragment(), PackageMvpView {
-
-
     companion object {
         fun newInstance(): PackageFragment {
             val args = Bundle()
@@ -41,16 +39,16 @@ class PackageFragment: BaseFragment(), PackageMvpView {
         component?.inject(this)
         presenter.onAttach(this)
 
-
         return view
     }
 
 
     override fun setUp(view: View?) {
         recyclerView.layoutManager = layoutManager
+        recyclerView.setItemViewCacheSize(30)
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, layoutManager.orientation))
         recyclerView.adapter = adapter
-        adapter.recyclerView = recyclerView
+        adapter.setRecyclerView(recyclerView, layoutManager)
 
         presenter.getPackages()
     }
