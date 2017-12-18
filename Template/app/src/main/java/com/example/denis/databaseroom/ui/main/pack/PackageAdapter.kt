@@ -1,6 +1,7 @@
 package com.example.denis.databaseroom.ui.main.pack
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -36,8 +37,7 @@ class PackageAdapter(var context: Context)
 
     fun setRecyclerView(recyclerView: RecyclerView) {
         this.recyclerView = recyclerView
-
-
+        
         recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 when(newState) {
@@ -88,12 +88,13 @@ class PackageAdapter(var context: Context)
         fun onBind(position: Int) {
             val pack = items[position]
 
-            picasso?.load(AppIconRequestHandler.getUri(pack.pack))
-                    ?.noFade()
-                    ?.fit()
-                    ?.tag(context)
-                    ?.placeholder(R.drawable.emoticon_devil)
-                    ?.into(icon)
+            picasso!!.load(AppIconRequestHandler.getUri(pack.pack))
+                    .noFade()
+                    .fit()
+                    .tag(context)
+                    .config(Bitmap.Config.RGB_565)
+                    .placeholder(R.drawable.emoticon_devil)
+                    .into(icon)
 
             text.text = pack.applicationName
             count.text = "${pack.length}"

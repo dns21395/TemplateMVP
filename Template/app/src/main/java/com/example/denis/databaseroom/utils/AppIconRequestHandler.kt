@@ -3,6 +3,9 @@ package com.example.denis.databaseroom.utils
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -42,4 +45,6 @@ class AppIconRequestHandler(val context: Context) : RequestHandler() {
 
         return Result(Bitmap.createScaledBitmap(bitmap, 120, 120, false), Picasso.LoadedFrom.DISK)
     }
+
+
 }
