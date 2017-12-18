@@ -50,7 +50,7 @@ class PackageFragment: BaseFragment(), PackageMvpView {
         recyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, layoutManager.orientation))
         recyclerView.adapter = adapter
-        adapter.setRecyclerView(recyclerView, layoutManager)
+        adapter.setRecyclerView(recyclerView)
 
         presenter.getPackages()
     }
