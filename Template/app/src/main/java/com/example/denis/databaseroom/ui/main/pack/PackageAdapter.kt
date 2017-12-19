@@ -37,7 +37,7 @@ class PackageAdapter(var context: Context)
 
     fun setRecyclerView(recyclerView: RecyclerView) {
         this.recyclerView = recyclerView
-        
+
         recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 when(newState) {

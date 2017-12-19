@@ -5,6 +5,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.example.denis.databaseroom.di.ActivityContext
 import com.example.denis.databaseroom.di.PerActivity
+import com.example.denis.databaseroom.ui.gallery.GalleryMvpPresenter
+import com.example.denis.databaseroom.ui.gallery.GalleryMvpView
+import com.example.denis.databaseroom.ui.gallery.GalleryPresenter
+import com.example.denis.databaseroom.ui.gallery.photos.PhotosMvpPresenter
+import com.example.denis.databaseroom.ui.gallery.photos.PhotosMvpView
+import com.example.denis.databaseroom.ui.gallery.photos.PhotosPresenter
 import com.example.denis.databaseroom.ui.main.MainMvpPresenter
 import com.example.denis.databaseroom.ui.main.MainMvpView
 import com.example.denis.databaseroom.ui.main.MainPresenter
@@ -44,10 +50,17 @@ class ActivityModule(val activity: AppCompatActivity) {
     @PerActivity
     fun provideMainPresenter(presenter: MainPresenter<MainMvpView>): MainMvpPresenter<MainMvpView> = presenter
 
+    @Provides
+    @PerActivity
+    fun provideGalleryPresenter(presenter: GalleryPresenter<GalleryMvpView>): GalleryMvpPresenter<GalleryMvpView> = presenter
+
     // Fragments
 
     @Provides
     fun providePackagePresenter(presenter: PackagePresenter<PackageMvpView>): PackageMvpPresenter<PackageMvpView> = presenter
+
+    @Provides
+    fun providePhotosPresenter(presenter: PhotosPresenter<PhotosMvpView>): PhotosMvpPresenter<PhotosMvpView> = presenter
 
     // Adapters
 

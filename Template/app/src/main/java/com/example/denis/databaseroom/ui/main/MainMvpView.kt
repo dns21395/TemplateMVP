@@ -8,4 +8,6 @@ import com.example.denis.databaseroom.ui.base.MvpView
  */
 interface MainMvpView: MvpView {
     fun setTaskFragment(fragment: Fragment)
+
+    fun openGalleryActivity()
 }
