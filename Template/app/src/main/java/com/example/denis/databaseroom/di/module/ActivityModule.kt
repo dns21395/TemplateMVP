@@ -2,6 +2,7 @@ package com.example.denis.databaseroom.di.module
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.example.denis.databaseroom.di.ActivityContext
 import com.example.denis.databaseroom.di.PerActivity
@@ -11,6 +12,7 @@ import com.example.denis.databaseroom.ui.gallery.GalleryPresenter
 import com.example.denis.databaseroom.ui.gallery.empty.EmptyMvpPresenter
 import com.example.denis.databaseroom.ui.gallery.empty.EmptyMvpView
 import com.example.denis.databaseroom.ui.gallery.empty.EmptyPresenter
+import com.example.denis.databaseroom.ui.gallery.photos.PhotosAdapter
 import com.example.denis.databaseroom.ui.gallery.photos.PhotosMvpPresenter
 import com.example.denis.databaseroom.ui.gallery.photos.PhotosMvpView
 import com.example.denis.databaseroom.ui.gallery.photos.PhotosPresenter
@@ -72,6 +74,9 @@ class ActivityModule(val activity: AppCompatActivity) {
 
     @Provides
     fun providePackageAdapter(): PackageAdapter = PackageAdapter(provideContext())
+
+    @Provides
+    fun providePhotosAdapter(): PhotosAdapter = PhotosAdapter(provideContext())
 
     // Helpers
 

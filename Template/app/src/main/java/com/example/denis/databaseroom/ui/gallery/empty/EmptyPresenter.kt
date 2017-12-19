@@ -1,6 +1,7 @@
 package com.example.denis.databaseroom.ui.gallery.empty
 
 import android.content.Context
+import android.provider.MediaStore
 import com.example.denis.databaseroom.data.DataManager
 import com.example.denis.databaseroom.di.ApplicationContext
 import com.example.denis.databaseroom.ui.base.BasePresenter
