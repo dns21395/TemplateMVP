@@ -72,6 +72,7 @@ class MainActivity: BaseActivity(), MainMvpView, NavigationView.OnNavigationItem
 
     override fun openGalleryActivity() {
         startActivity(GalleryActivity.getStartInject(applicationContext))
+        drawer.closeDrawers()
     }
 
     override fun setTaskFragment(fragment: Fragment) {

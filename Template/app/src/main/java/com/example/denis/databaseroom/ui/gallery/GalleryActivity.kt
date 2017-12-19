@@ -2,12 +2,17 @@ package com.example.denis.databaseroom.ui.gallery
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
+import android.util.Log
 import com.example.denis.databaseroom.R
 import com.example.denis.databaseroom.ui.base.BaseActivity
+import com.example.denis.databaseroom.ui.gallery.empty.EmptyFragment
 import com.example.denis.databaseroom.ui.gallery.photos.PhotosFragment
 import kotlinx.android.synthetic.main.activity_gallery.*
+import java.util.jar.Manifest
 import javax.inject.Inject
 
 /**
@@ -18,6 +23,7 @@ class GalleryActivity : BaseActivity(), GalleryMvpView {
         fun getStartInject(context: Context): Intent = Intent(context, GalleryActivity::class.java)
     }
 
+    private val TAG = "GalleryActivity"
 
     @Inject lateinit var presenter: GalleryMvpPresenter<GalleryMvpView>
 
@@ -34,7 +40,11 @@ class GalleryActivity : BaseActivity(), GalleryMvpView {
 
     override fun setUp() {
         setupToolbar()
-        setFragmentLayout(PhotosFragment.newInstance())
+
+        when(permissionCheck()) {
+            true -> setFragmentLayout(PhotosFragment.newInstance())
+            false -> setFragmentLayout(EmptyFragment.newInstance())
+        }
     }
 
     override fun setupToolbar() {
@@ -43,6 +53,31 @@ class GalleryActivity : BaseActivity(), GalleryMvpView {
     }
 
     override fun setFragmentLayout(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commitAllowingStateLoss()
+    }
+
+    override fun permissionCheck(): Boolean {
+         return ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when(requestCode) {
+            1337 -> {
+                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    setFragmentLayout(PhotosFragment.newInstance())
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode) {
+            1338 -> {
+                when(permissionCheck()) {
+                    true -> setFragmentLayout(PhotosFragment.newInstance())
+                    false -> setFragmentLayout(EmptyFragment.newInstance())
+                }
+            }
+        }
     }
 }

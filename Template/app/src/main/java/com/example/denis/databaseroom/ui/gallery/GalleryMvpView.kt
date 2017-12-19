@@ -11,4 +11,6 @@ interface GalleryMvpView : MvpView {
 
     fun setFragmentLayout(fragment: Fragment)
 
+    fun permissionCheck(): Boolean
+
 }

@@ -8,6 +8,9 @@ import com.example.denis.databaseroom.di.PerActivity
 import com.example.denis.databaseroom.ui.gallery.GalleryMvpPresenter
 import com.example.denis.databaseroom.ui.gallery.GalleryMvpView
 import com.example.denis.databaseroom.ui.gallery.GalleryPresenter
+import com.example.denis.databaseroom.ui.gallery.empty.EmptyMvpPresenter
+import com.example.denis.databaseroom.ui.gallery.empty.EmptyMvpView
+import com.example.denis.databaseroom.ui.gallery.empty.EmptyPresenter
 import com.example.denis.databaseroom.ui.gallery.photos.PhotosMvpPresenter
 import com.example.denis.databaseroom.ui.gallery.photos.PhotosMvpView
 import com.example.denis.databaseroom.ui.gallery.photos.PhotosPresenter
@@ -61,6 +64,9 @@ class ActivityModule(val activity: AppCompatActivity) {
 
     @Provides
     fun providePhotosPresenter(presenter: PhotosPresenter<PhotosMvpView>): PhotosMvpPresenter<PhotosMvpView> = presenter
+
+    @Provides
+    fun provideEmptyPresenter(presenter: EmptyPresenter<EmptyMvpView>): EmptyMvpPresenter<EmptyMvpView> = presenter
 
     // Adapters
 

@@ -3,6 +3,7 @@ package com.example.denis.databaseroom.di.component
 import com.example.denis.databaseroom.di.PerActivity
 import com.example.denis.databaseroom.di.module.ActivityModule
 import com.example.denis.databaseroom.ui.gallery.GalleryActivity
+import com.example.denis.databaseroom.ui.gallery.empty.EmptyFragment
 import com.example.denis.databaseroom.ui.gallery.photos.PhotosFragment
 import com.example.denis.databaseroom.ui.main.MainActivity
 import com.example.denis.databaseroom.ui.main.pack.PackageFragment
@@ -28,5 +29,7 @@ interface ActivityComponent {
     fun inject(packageFragment: PackageFragment)
 
     fun inject(photosFragment: PhotosFragment)
+
+    fun inject(emptyFragment: EmptyFragment)
 
 }
