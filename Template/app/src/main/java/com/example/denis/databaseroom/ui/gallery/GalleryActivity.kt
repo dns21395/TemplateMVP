@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import com.example.denis.databaseroom.R
 import com.example.denis.databaseroom.ui.base.BaseActivity
 import com.example.denis.databaseroom.ui.gallery.empty.EmptyFragment
@@ -50,7 +52,20 @@ class GalleryActivity : BaseActivity(), GalleryMvpView {
     override fun setupToolbar() {
         setSupportActionBar(toolbar)
         toolbarTitle.text = applicationContext.resources.getString(R.string.gallery)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayShowHomeEnabled(true);
     }
+
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
+        }
+        return false
+    }
+
 
     override fun setFragmentLayout(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commitAllowingStateLoss()

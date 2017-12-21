@@ -47,7 +47,6 @@ class PhotosFragment : BaseFragment(), PhotosMvpView {
 
     override fun setUp(view: View?) {
         setupRecyclerView()
-
     }
 
     override fun setupRecyclerView() {

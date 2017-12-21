@@ -78,14 +78,14 @@ class PackageAdapter(var context: Context)
         }
         recyclerView?.smoothScrollToPosition(0)
 
-        Observable.fromCallable {
-            for(icon in items) {
-                picasso!!.load(AppIconRequestHandler.getUri(icon.pack))
-                        .fetch()
-            }
-        } .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+//        Observable.fromCallable {
+//            for(icon in items) {
+//                picasso!!.load(AppIconRequestHandler.getUri(icon.pack))
+//                        .fetch()
+//            }
+//        } .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe()
     }
 
 
@@ -107,7 +107,8 @@ class PackageAdapter(var context: Context)
             database = items[position]
 
             picasso!!.load(AppIconRequestHandler.getUri(database!!.pack))
-                    .into(target)
+                    .placeholder(R.drawable.white)
+                    .into(icon)
 
 
 
