@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.example.denis.databaseroom.R
 import com.example.denis.databaseroom.data.db.model.MyDatabase
 import com.example.denis.databaseroom.utils.AppIconRequestHandler
+import com.example.denis.databaseroom.utils.pxToDp
 import com.squareup.picasso.Picasso
 import io.reactivex.disposables.CompositeDisposable
 
@@ -38,17 +39,18 @@ class PackageAdapter(var context: Context)
     fun setRecyclerView(recyclerView: RecyclerView) {
         this.recyclerView = recyclerView
 
-        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                when(newState) {
-                    RecyclerView.SCROLL_STATE_IDLE -> picasso?.resumeTag(context)
-                    else -> picasso?.pauseTag(context)
-                }
-            }
-        })
+//        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+//            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+//                when(newState) {
+//                    RecyclerView.SCROLL_STATE_IDLE -> picasso?.resumeTag(context)
+//                    else -> picasso?.pauseTag(context)
+//                }
+//            }
+//        })
     }
 
     override fun onBindViewHolder(holder: PackageViewHolder, position: Int) {
+        holder.clear()
         holder.onBind(position)
     }
 
@@ -56,8 +58,13 @@ class PackageAdapter(var context: Context)
 
     override fun getItemCount(): Int = items.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackageViewHolder =
-            PackageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_package, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackageViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_package, parent, false)
+
+
+
+        return PackageViewHolder(view)
+    }
 
     fun insertItems(array: ArrayList<MyDatabase>) {
         Log.d(TAG, "INSER")
@@ -79,27 +86,43 @@ class PackageAdapter(var context: Context)
     }
 
 
-    inner class PackageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class PackageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Callback {
         val icon = itemView.findViewById<ImageView>(R.id.icon)
         val text = itemView.findViewById<TextView>(R.id.text)
         val count = itemView.findViewById<TextView>(R.id.count)
 
+        var database: MyDatabase? = null
+
+        val target = IconLoaded(icon, this)
+
+        init {
+            icon.tag = target
+        }
+
 
         fun onBind(position: Int) {
-            val pack = items[position]
+            database = items[position]
 
-            picasso!!.load(AppIconRequestHandler.getUri(pack.pack))
-                    .noFade()
-                    .fit()
-                    .tag(context)
-                    .config(Bitmap.Config.RGB_565)
-                    .placeholder(R.drawable.emoticon_devil)
-                    .into(icon)
 
-            text.text = pack.applicationName
-            count.text = "${pack.length}"
 
+            picasso!!.load(AppIconRequestHandler.getUri(database!!.pack))
+                    .into(target)
 
         }
+
+        fun clear() {
+            icon.setImageBitmap(null)
+            text.text = ""
+            count.text = ""
+        }
+
+        override fun updateTexts() {
+            text.text = database?.applicationName
+            count.text = "${database?.length}"
+        }
+    }
+
+    interface Callback {
+        fun updateTexts()
     }
 }

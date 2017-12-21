@@ -9,6 +9,7 @@ import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.util.Log
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Request
 import com.squareup.picasso.RequestHandler
@@ -20,11 +21,17 @@ class AppIconRequestHandler(val context: Context) : RequestHandler() {
     val packageManager = context.packageManager
 
 
+
     companion object {
         val SCHEME_APP_ICON = "app-icon"
 
-        fun getUri(packageName: String): Uri =
-                Uri.fromParts(SCHEME_APP_ICON, packageName, null)
+        private val TAG = "AppIconRequestHandler"
+
+
+        fun getUri(packageName: String): Uri {
+            Log.d(TAG,  "getUri : $packageName")
+            return Uri.fromParts(SCHEME_APP_ICON, packageName, null)
+        }
     }
 
     override fun canHandleRequest(data: Request): Boolean {
@@ -33,6 +40,10 @@ class AppIconRequestHandler(val context: Context) : RequestHandler() {
 
     override fun load(request: Request, networkPolicy: Int): Result? {
         val packageName = request.uri.schemeSpecificPart
+
+        Log.d(TAG,  "load : $packageName")
+
+
         var drawable: Drawable? = null
         try {
             drawable = packageManager.getApplicationIcon(packageName)
@@ -45,6 +56,8 @@ class AppIconRequestHandler(val context: Context) : RequestHandler() {
 
         return Result(Bitmap.createScaledBitmap(bitmap, 120, 120, false), Picasso.LoadedFrom.DISK)
     }
+
+
 
 
 }

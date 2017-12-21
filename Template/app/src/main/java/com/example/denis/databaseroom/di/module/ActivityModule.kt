@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.denis.databaseroom.di.ActivityContext
 import com.example.denis.databaseroom.di.PerActivity
 import com.example.denis.databaseroom.ui.gallery.GalleryMvpPresenter
@@ -76,7 +77,7 @@ class ActivityModule(val activity: AppCompatActivity) {
     fun providePackageAdapter(): PackageAdapter = PackageAdapter(provideContext())
 
     @Provides
-    fun providePhotosAdapter(): PhotosAdapter = PhotosAdapter(provideContext())
+    fun providePhotosAdapter(): PhotosAdapter = PhotosAdapter(Glide.with(provideContext()), provideContext())
 
     // Helpers
 
