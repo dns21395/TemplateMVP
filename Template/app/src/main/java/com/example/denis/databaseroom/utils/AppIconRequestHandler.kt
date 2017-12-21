@@ -29,7 +29,6 @@ class AppIconRequestHandler(val context: Context) : RequestHandler() {
 
 
         fun getUri(packageName: String): Uri {
-            Log.d(TAG,  "getUri : $packageName")
             return Uri.fromParts(SCHEME_APP_ICON, packageName, null)
         }
     }
@@ -40,9 +39,6 @@ class AppIconRequestHandler(val context: Context) : RequestHandler() {
 
     override fun load(request: Request, networkPolicy: Int): Result? {
         val packageName = request.uri.schemeSpecificPart
-
-        Log.d(TAG,  "load : $packageName")
-
 
         var drawable: Drawable? = null
         try {

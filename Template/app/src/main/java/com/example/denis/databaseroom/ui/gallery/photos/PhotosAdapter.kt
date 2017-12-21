@@ -73,7 +73,6 @@ class PhotosAdapter(val glide: RequestManager, val context: Context) : RecyclerV
         }
 
         fun onBind(imagePath: String) = with(itemView) {
-            Log.d(TAG, "width : $_width height : $_height")
             picasso!!.load(ImageRequestHandler.getUri(imagePath))
                     .into(target)
 

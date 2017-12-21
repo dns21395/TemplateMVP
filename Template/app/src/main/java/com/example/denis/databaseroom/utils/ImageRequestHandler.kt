@@ -26,7 +26,6 @@ class ImageRequestHandler(val context: Context) : RequestHandler() {
         private val TAG = "ImageRequestHandler"
 
         fun getUri(photoPath: String): Uri {
-            Log.d(TAG, "getUri : $photoPath")
             return Uri.fromParts(SCHEME_PHOTO, photoPath, null)
         }
     }
@@ -34,7 +33,6 @@ class ImageRequestHandler(val context: Context) : RequestHandler() {
     override fun load(request: Request, networkPolicy: Int): Result {
         val imagePath = request.uri.schemeSpecificPart
 
-        Log.d(TAG, "load : $imagePath")
 
         val file = File(imagePath)
         val imageUri = Uri.fromFile(file)

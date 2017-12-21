@@ -38,19 +38,12 @@ class PackageAdapter(var context: Context)
 
     fun setRecyclerView(recyclerView: RecyclerView) {
         this.recyclerView = recyclerView
-
-//        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-//            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-//                when(newState) {
-//                    RecyclerView.SCROLL_STATE_IDLE -> picasso?.resumeTag(context)
-//                    else -> picasso?.pauseTag(context)
-//                }
-//            }
-//        })
     }
 
     override fun onBindViewHolder(holder: PackageViewHolder, position: Int) {
         holder.clear()
+        holder.text.text = items[position].applicationName
+        holder.count.text = items[position].length.toString()
         holder.onBind(position)
     }
 
@@ -61,13 +54,13 @@ class PackageAdapter(var context: Context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_package, parent, false)
 
-
+        val lp = RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        view.layoutParams = lp
 
         return PackageViewHolder(view)
     }
 
     fun insertItems(array: ArrayList<MyDatabase>) {
-        Log.d(TAG, "INSER")
         when(items.size) {
             0 -> {
                 items = array
@@ -86,14 +79,14 @@ class PackageAdapter(var context: Context)
     }
 
 
-    inner class PackageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Callback {
+    inner class PackageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val icon = itemView.findViewById<ImageView>(R.id.icon)
         val text = itemView.findViewById<TextView>(R.id.text)
         val count = itemView.findViewById<TextView>(R.id.count)
 
         var database: MyDatabase? = null
 
-        val target = IconLoaded(icon, this)
+        val target = IconLoaded(icon)
 
         init {
             icon.tag = target
@@ -102,8 +95,6 @@ class PackageAdapter(var context: Context)
 
         fun onBind(position: Int) {
             database = items[position]
-
-
 
             picasso!!.load(AppIconRequestHandler.getUri(database!!.pack))
                     .into(target)
@@ -115,14 +106,5 @@ class PackageAdapter(var context: Context)
             text.text = ""
             count.text = ""
         }
-
-        override fun updateTexts() {
-            text.text = database?.applicationName
-            count.text = "${database?.length}"
-        }
-    }
-
-    interface Callback {
-        fun updateTexts()
     }
 }

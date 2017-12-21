@@ -12,7 +12,7 @@ import com.squareup.picasso.Target
 /**
  * Created by denis on 21/12/2017.
  */
-class IconLoaded(val image: ImageView, val callback: PackageAdapter.Callback) : Target {
+class IconLoaded(val image: ImageView) : Target {
     override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
 
     }
@@ -22,6 +22,5 @@ class IconLoaded(val image: ImageView, val callback: PackageAdapter.Callback) : 
 
     override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
         image.setImageBitmap(bitmap)
-        callback.updateTexts()
     }
 }
