@@ -21,16 +21,25 @@ import kotlinx.android.synthetic.main.item_photo.view.*
 import com.example.denis.databaseroom.R.id.toolbar
 import android.graphics.drawable.BitmapDrawable
 import android.R.attr.bitmap
+import android.net.Uri
+import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
+import com.squareup.picasso.Callback
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 /**
  * Created by denis on 19/12/2017.
  */
 class PhotosAdapter(val glide: RequestManager, val context: Context) : RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
-    var photos = ArrayList<String>()
+    var photos = ArrayList<ImageGallery>()
 
     var picasso: Picasso? = null
+
+    lateinit var recyclerView: RecyclerView
+    lateinit var layoutManager: RecyclerView.LayoutManager
 
 
     private val TAG = "PhotosAdapter"
@@ -39,6 +48,25 @@ class PhotosAdapter(val glide: RequestManager, val context: Context) : RecyclerV
         val builder = Picasso.Builder(context)
         builder.addRequestHandler(ImageRequestHandler(context))
         picasso = builder.build()
+
+
+    }
+
+    fun setRecyclerLayoutManager(recyclerView: RecyclerView, layoutManager: LinearLayoutManager) {
+        this.recyclerView = recyclerView
+        this.layoutManager = layoutManager
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                Log.d(TAG, "onScrolledstatechanged = $newState")
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+            }
+        })
     }
 
     override fun getItemCount(): Int = photos.size
@@ -48,8 +76,7 @@ class PhotosAdapter(val glide: RequestManager, val context: Context) : RecyclerV
         holder.onBind(photos[position])
     }
 
-    fun insertItems(array: ArrayList<String>) {
-        Log.d(TAG, "insert items - size ; ${array.size}")
+    fun insertItems(array: ArrayList<ImageGallery>) {
         photos = array
         notifyDataSetChanged()
     }
@@ -58,13 +85,15 @@ class PhotosAdapter(val glide: RequestManager, val context: Context) : RecyclerV
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false)
 
         val width = parent.width / 3
-        view.minimumWidth = width
 
-        return PhotoViewHolder(view, width, parent.height)
+        val lp = RecyclerView.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+        view.layoutParams = lp
+
+        return PhotoViewHolder(view)
 
     }
 
-    inner class PhotoViewHolder(itemView: View, val _width: Int, val _height: Int) : RecyclerView.ViewHolder(itemView) {
+    inner class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image = itemView.findViewById<ImageView>(R.id.image)
         val target = BitmapLoaded(image)
 
@@ -72,9 +101,15 @@ class PhotosAdapter(val glide: RequestManager, val context: Context) : RecyclerV
             image.tag = target
         }
 
-        fun onBind(imagePath: String) = with(itemView) {
-            picasso!!.load(ImageRequestHandler.getUri(imagePath))
-                    .into(target)
+        fun onBind(imagePath: ImageGallery) = with(itemView) {
+            picasso!!.load(imagePath.getUri())
+                    .placeholder(R.drawable.placeholder)
+                    .fit()
+                    .centerCrop()
+                    .into(image)
+
+
+
 
         }
     }

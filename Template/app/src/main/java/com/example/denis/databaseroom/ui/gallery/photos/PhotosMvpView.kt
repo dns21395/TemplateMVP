@@ -8,6 +8,6 @@ import com.example.denis.databaseroom.ui.base.MvpView
 interface PhotosMvpView : MvpView {
     fun setupRecyclerView()
 
-    fun updateRecyclerView(array: ArrayList<String>)
+    fun updateRecyclerView(array: ArrayList<ImageGallery>)
 
 }

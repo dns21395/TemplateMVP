@@ -1,6 +1,7 @@
 package com.example.denis.databaseroom.ui.gallery.photos
 
 import android.content.Context
+import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
 import com.example.denis.databaseroom.data.DataManager
@@ -10,6 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.io.File
 import javax.inject.Inject
 
 /**
@@ -26,7 +28,7 @@ class PhotosPresenter<V: PhotosMvpView>
     override fun getImages() {
         Log.d(TAG, "getImages")
         Observable.fromCallable {
-            val images = ArrayList<String>()
+            val images = ArrayList<ImageGallery>()
 
             val uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             val projection = arrayOf(MediaStore.MediaColumns.DATA)
@@ -41,7 +43,9 @@ class PhotosPresenter<V: PhotosMvpView>
             cursor.moveToFirst()
             while(cursor.moveToNext()) {
                 val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
-                images.add(cursor.getString(columnIndex))
+                val photo = ImageGallery()
+                photo.setUri(Uri.fromFile(File(cursor.getString(columnIndex))))
+                images.add(photo)
             }
 
             cursor.close()

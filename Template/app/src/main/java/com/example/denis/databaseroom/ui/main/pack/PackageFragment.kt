@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.example.denis.databaseroom.R
 import com.example.denis.databaseroom.data.db.model.MyDatabase
 import com.example.denis.databaseroom.ui.base.BaseFragment
+import com.example.denis.databaseroom.utils.PreloadingLinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_package.*
 import javax.inject.Inject
 
@@ -44,12 +45,8 @@ class PackageFragment: BaseFragment(), PackageMvpView {
 
 
     override fun setUp(view: View?) {
-//        layoutManager.initialPrefetchItemCount = 4
-//        layoutManager.isItemPrefetchEnabled = true
         recyclerView.layoutManager = layoutManager
-//        recyclerView.setItemViewCacheSize(30)
-//        recyclerView.isDrawingCacheEnabled = true
-//        recyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
+
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, layoutManager.orientation))
         recyclerView.adapter = adapter
         adapter.setRecyclerView(recyclerView)

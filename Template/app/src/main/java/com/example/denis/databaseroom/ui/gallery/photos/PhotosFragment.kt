@@ -53,11 +53,13 @@ class PhotosFragment : BaseFragment(), PhotosMvpView {
     override fun setupRecyclerView() {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
+        adapter.setRecyclerLayoutManager(recyclerView, layoutManager)
 
         presenter.getImages()
     }
 
-    override fun updateRecyclerView(array: ArrayList<String>) {
+    override fun updateRecyclerView(array: ArrayList<ImageGallery>) {
         adapter.insertItems(array)
     }
 }

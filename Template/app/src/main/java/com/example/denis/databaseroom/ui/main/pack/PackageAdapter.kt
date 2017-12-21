@@ -1,10 +1,7 @@
 package com.example.denis.databaseroom.ui.main.pack
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +10,10 @@ import android.widget.TextView
 import com.example.denis.databaseroom.R
 import com.example.denis.databaseroom.data.db.model.MyDatabase
 import com.example.denis.databaseroom.utils.AppIconRequestHandler
-import com.example.denis.databaseroom.utils.pxToDp
 import com.squareup.picasso.Picasso
-import io.reactivex.disposables.CompositeDisposable
-
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -41,12 +38,16 @@ class PackageAdapter(var context: Context)
     }
 
     override fun onBindViewHolder(holder: PackageViewHolder, position: Int) {
-        holder.clear()
         holder.text.text = items[position].applicationName
         holder.count.text = items[position].length.toString()
         holder.onBind(position)
     }
 
+
+    override fun onViewRecycled(holder: PackageViewHolder?) {
+        holder?.clear()
+        super.onViewRecycled(holder)
+    }
 
 
     override fun getItemCount(): Int = items.size
@@ -76,6 +77,15 @@ class PackageAdapter(var context: Context)
             }
         }
         recyclerView?.smoothScrollToPosition(0)
+
+        Observable.fromCallable {
+            for(icon in items) {
+                picasso!!.load(AppIconRequestHandler.getUri(icon.pack))
+                        .fetch()
+            }
+        } .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
     }
 
 
@@ -98,6 +108,8 @@ class PackageAdapter(var context: Context)
 
             picasso!!.load(AppIconRequestHandler.getUri(database!!.pack))
                     .into(target)
+
+
 
         }
 

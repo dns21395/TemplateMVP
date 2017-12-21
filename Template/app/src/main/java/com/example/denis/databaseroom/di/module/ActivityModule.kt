@@ -27,6 +27,7 @@ import com.example.denis.databaseroom.ui.main.pack.PackagePresenter
 import com.example.denis.databaseroom.ui.splash.SplashMvpPresenter
 import com.example.denis.databaseroom.ui.splash.SplashMvpView
 import com.example.denis.databaseroom.ui.splash.SplashPresenter
+import com.example.denis.databaseroom.utils.PreloadingLinearLayoutManager
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
