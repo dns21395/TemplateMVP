@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/indie_flower</item>
+        <item>@font/just_me_again_down_here</item>
+        <item>@font/meie_script</item>
+        <item>@font/metal_mania</item>
+        <item>@font/mystery_quest</item>
+        <item>@font/shadows_into_light</item>
+        <item>@font/sue_ellen_francisco</item>
+    </array>
+</resources>

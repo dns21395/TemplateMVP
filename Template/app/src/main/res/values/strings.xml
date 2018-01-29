@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Template</string>
+    <string name="click_me">Click Me</string>
+    <string name="applications">Applications</string>
     <string name="gallery">Gallery</string>
-    <string name="home">Home</string>
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
-    <string name="permission_description">I can not read external storage data. Please, give permission</string>
-    <string name="give_permission">Give permission</string>
 </resources>
