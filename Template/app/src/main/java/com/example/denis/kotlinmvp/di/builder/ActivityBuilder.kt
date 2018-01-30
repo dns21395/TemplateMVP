@@ -1,9 +1,9 @@
 package com.example.denis.kotlinmvp.di.builder
 
 import com.example.denis.kotlinmvp.ui.main.MainActivityModule
-import com.example.denis.kotlinmvp.ui.main.application.ApplicationFragmentModule
-import com.example.denis.kotlinmvp.ui.main.application.ApplicationFragmentProvider
-import com.example.denis.kotlinmvp.ui.main.gallery.GalleryFragmentProvider
+import com.example.denis.kotlinmvp.ui.main.fragments.application.ApplicationFragmentProvider
+import com.example.denis.kotlinmvp.ui.main.fragments.gallery.GalleryFragmentProvider
+import com.example.denis.kotlinmvp.ui.main.fragments.permission.PermissionFragmentProvider
 import com.example.denis.kotlinmvp.ui.main.view.MainActivity
 import com.example.denis.kotlinmvp.ui.splash.SplashActivityModule
 import com.example.denis.kotlinmvp.ui.splash.view.SplashActivity
@@ -19,6 +19,11 @@ abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = [(SplashActivityModule::class)])
     abstract fun bindSplashActivity(): SplashActivity
 
-    @ContributesAndroidInjector(modules = [(MainActivityModule::class), (ApplicationFragmentProvider::class), (GalleryFragmentProvider::class)])
+    @ContributesAndroidInjector(modules = [
+        (MainActivityModule::class),
+        (ApplicationFragmentProvider::class),
+        (GalleryFragmentProvider::class),
+        (PermissionFragmentProvider::class)
+    ])
     abstract fun bindMainActivity(): MainActivity
 }

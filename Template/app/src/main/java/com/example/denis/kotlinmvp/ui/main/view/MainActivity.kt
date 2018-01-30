@@ -1,14 +1,17 @@
 package com.example.denis.kotlinmvp.ui.main.view
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
+import android.util.Log
 import android.view.MenuItem
 import com.example.denis.kotlinmvp.R
+import com.example.denis.kotlinmvp.model.PermissionManager
 import com.example.denis.kotlinmvp.ui.base.view.BaseActivity
-import com.example.denis.kotlinmvp.ui.main.application.view.ApplicationFragment
-import com.example.denis.kotlinmvp.ui.main.gallery.view.GalleryFragment
+import com.example.denis.kotlinmvp.ui.main.fragments.application.view.ApplicationFragment
 import com.example.denis.kotlinmvp.ui.main.interactor.MainMVPInteractor
 import com.example.denis.kotlinmvp.ui.main.presenter.MainMVPPresenter
 import dagger.android.AndroidInjector
@@ -23,6 +26,7 @@ import javax.inject.Inject
  */
 class MainActivity : BaseActivity(), MainMVPView, HasSupportFragmentInjector, NavigationView.OnNavigationItemSelectedListener {
 
+    private val TAG = "MainActivity"
 
     @Inject internal lateinit var presenter: MainMVPPresenter<MainMVPView, MainMVPInteractor>
     @Inject internal lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
@@ -67,10 +71,22 @@ class MainActivity : BaseActivity(), MainMVPView, HasSupportFragmentInjector, Na
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.applications -> updateFrameLayout(ApplicationFragment.newInstance())
-            R.id.gallery -> updateFrameLayout(GalleryFragment.newInstance())
+            R.id.gallery -> presenter.onDrawerOptionGallery()
         }
         drawer.closeDrawers()
         return false
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.d(TAG, "requestCode : $requestCode\npermisison = $permissions\ngrantResults : ${grantResults[0]}")
+        if(requestCode == PermissionManager.REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) presenter.onDrawerOptionGallery()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d(TAG, "requestCode = $requestCode\nresultCode = $resultCode\n")
+        if(requestCode == PermissionManager.REQUEST_CODE) presenter.onDrawerOptionGallery()
     }
 
 
