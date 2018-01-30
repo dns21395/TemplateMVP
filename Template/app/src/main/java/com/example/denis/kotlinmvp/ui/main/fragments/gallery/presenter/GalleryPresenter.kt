@@ -21,7 +21,7 @@ class GalleryPresenter<V: GalleryMVPView, I : GalleryMVPInteractor>
         getGalleryImages()
     }
 
-    fun getGalleryImages() {
+    private fun getGalleryImages() {
         interactor?.let {
             compositeDisposable.add(
                     Observable.fromCallable {

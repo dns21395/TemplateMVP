@@ -4,7 +4,7 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
-import com.example.denis.kotlinmvp.model.database.repository.names.Name
+import com.example.denis.kotlinmvp.model.database.repository.name.Name
 
 /**
  * Created by denis on 26/01/2018.

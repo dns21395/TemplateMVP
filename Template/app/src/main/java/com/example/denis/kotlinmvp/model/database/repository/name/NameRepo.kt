@@ -1,4 +1,4 @@
-package com.example.denis.kotlinmvp.model.database.repository.names
+package com.example.denis.kotlinmvp.model.database.repository.name
 
 import io.reactivex.Observable
 

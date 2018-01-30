@@ -1,4 +1,4 @@
-package com.example.denis.kotlinmvp.model.database.repository.names
+package com.example.denis.kotlinmvp.model.database.repository.name
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

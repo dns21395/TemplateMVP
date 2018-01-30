@@ -35,7 +35,7 @@ class ImageRequestHandler(val context: Context) : RequestHandler() {
     override fun load(request: Request, networkPolicy: Int): Result? {
         val packageName = request.uri.schemeSpecificPart
 
-        var drawable: Drawable? = null
+        val drawable: Drawable?
         try {
             drawable = packageManager.getApplicationIcon(packageName)
         } catch (ignored: PackageManager.NameNotFoundException) {

@@ -12,6 +12,7 @@ import com.example.denis.kotlinmvp.R
 import com.example.denis.kotlinmvp.model.PermissionManager
 import com.example.denis.kotlinmvp.ui.base.view.BaseActivity
 import com.example.denis.kotlinmvp.ui.main.fragments.application.view.ApplicationFragment
+import com.example.denis.kotlinmvp.ui.main.fragments.people.view.PeopleFragment
 import com.example.denis.kotlinmvp.ui.main.interactor.MainMVPInteractor
 import com.example.denis.kotlinmvp.ui.main.presenter.MainMVPPresenter
 import dagger.android.AndroidInjector
@@ -72,6 +73,7 @@ class MainActivity : BaseActivity(), MainMVPView, HasSupportFragmentInjector, Na
         when(item.itemId) {
             R.id.applications -> updateFrameLayout(ApplicationFragment.newInstance())
             R.id.gallery -> presenter.onDrawerOptionGallery()
+            R.id.people -> updateFrameLayout(PeopleFragment.newInstance())
         }
         drawer.closeDrawers()
         return false
