@@ -4,6 +4,7 @@ import com.example.denis.kotlinmvp.model.database.repository.age.Age
 import com.example.denis.kotlinmvp.model.database.repository.age.AgeDao
 import com.example.denis.kotlinmvp.model.database.repository.name.Name
 import com.example.denis.kotlinmvp.model.database.repository.name.NameDao
+import io.reactivex.Flowable
 import javax.inject.Inject
 
 /**
@@ -15,7 +16,7 @@ class PersonRepository
                                  private val ageDao: AgeDao)
     : PersonRepo {
 
-    override fun getAllPerson(): List<Person> = personDao.getAllPerson()
+    override fun getAllPerson(): Flowable<List<Person>> = personDao.getAllPerson()
 
     override fun insertPerson(person: Person) {
         val ageId = ageDao.insert(Age(0, person.age))

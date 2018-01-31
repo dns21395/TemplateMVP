@@ -26,9 +26,8 @@ class PeoplePresenter<V: PeopleMVPView, I : PeopleMVPInteractor>
 
     private fun getPersons() {
         interactor?.let {
-            Observable.fromCallable {
-                it.getPersons()
-            }.compose(schedulerProvider.ioToMainObservableScheduler())
+            it.getPersons()
+            .compose(schedulerProvider.ioToMainFlowableScheduler())
                     .subscribe {
                         getView()?.displayPeople(it as ArrayList<Person>)
                     }

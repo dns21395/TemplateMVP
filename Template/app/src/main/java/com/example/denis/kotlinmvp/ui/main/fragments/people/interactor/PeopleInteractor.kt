@@ -4,6 +4,7 @@ import com.example.denis.kotlinmvp.model.preferences.PreferenceHelper
 import com.example.denis.kotlinmvp.ui.base.interactor.BaseInteractor
 import com.example.denis.kotlinmvp.model.database.repository.person.Person
 import com.example.denis.kotlinmvp.model.database.repository.person.PersonRepo
+import io.reactivex.Flowable
 import javax.inject.Inject
 
 /**
@@ -11,6 +12,6 @@ import javax.inject.Inject
  */
 class PeopleInteractor @Inject internal constructor(private val personRepo: PersonRepo, preferenceHelper: PreferenceHelper)
     : BaseInteractor(preferenceHelper), PeopleMVPInteractor {
-    override fun getPersons(): List<Person> = personRepo.getAllPerson()
+    override fun getPersons(): Flowable<List<Person>> = personRepo.getAllPerson()
 
 }
