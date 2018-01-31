@@ -42,4 +42,5 @@ class GalleryFragment : BaseFragment(), GalleryMVPView {
     override fun displayGalleryImages(array: ArrayList<GalleryImage>) {
         adapter.updateArray(array)
     }
+
 }

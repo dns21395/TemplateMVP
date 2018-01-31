@@ -7,12 +7,11 @@ import javax.inject.Inject
  * Created by denis on 26/01/2018.
  */
 class NameRepository @Inject internal constructor(private val nameDao: NameDao) : NameRepo {
-    override fun loadNames(): Observable<List<Name>> = Observable.fromCallable { nameDao.loadAll() }
+    override fun loadNames(): List<Name> = nameDao.loadAll()
 
-    override fun insertName(name: Name): Observable<Boolean> {
+    override fun insertName(name: Name) {
         nameDao.insert(name)
-        return Observable.just(true)
     }
 
-    override fun isNameRepoEmpty(): Observable<Boolean> = Observable.fromCallable { nameDao.loadAll().isEmpty() }
+    override fun isNameRepoEmpty(): Boolean = nameDao.loadAll().isEmpty()
 }

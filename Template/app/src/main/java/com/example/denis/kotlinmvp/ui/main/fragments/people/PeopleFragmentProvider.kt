@@ -1,5 +1,6 @@
 package com.example.denis.kotlinmvp.ui.main.fragments.people
 
+import com.example.denis.kotlinmvp.ui.main.fragments.people.person.InsertPersonDialogProvider
 import com.example.denis.kotlinmvp.ui.main.fragments.people.view.PeopleFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

@@ -81,13 +81,11 @@ class MainActivity : BaseActivity(), MainMVPView, HasSupportFragmentInjector, Na
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        Log.d(TAG, "requestCode : $requestCode\npermisison = $permissions\ngrantResults : ${grantResults[0]}")
         if(requestCode == PermissionManager.REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) presenter.onDrawerOptionGallery()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d(TAG, "requestCode = $requestCode\nresultCode = $resultCode\n")
         if(requestCode == PermissionManager.REQUEST_CODE) presenter.onDrawerOptionGallery()
     }
 

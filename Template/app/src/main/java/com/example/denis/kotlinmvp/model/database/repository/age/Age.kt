@@ -9,17 +9,14 @@ import com.example.denis.kotlinmvp.model.database.repository.name.Name
 /**
  * Created by denis on 26/01/2018.
  */
-@Entity(tableName = "ages", foreignKeys = [(ForeignKey(entity = Name::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("name_id"),
-        onDelete = ForeignKey.CASCADE))])
+//@Entity(tableName = "age", foreignKeys = [(ForeignKey(entity = Name::class,
+//        parentColumns = arrayOf("id"),
+//        childColumns = arrayOf("name_id"),
+//        onDelete = ForeignKey.CASCADE))])
+
+@Entity(tableName = "age")
 data class Age (
         @PrimaryKey(autoGenerate = true)
         var id: Long,
-
-        @ColumnInfo(name = "name_id")
-        var nameId: Long,
-
-        @ColumnInfo(name = "age")
         var age: Int
 )
