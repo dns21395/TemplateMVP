@@ -2,18 +2,17 @@ package com.example.denis.kotlinmvp.ui.main.fragments.people.view
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.denis.kotlinmvp.R
+import com.example.denis.kotlinmvp.model.database.repository.person.Person
 import com.example.denis.kotlinmvp.ui.base.view.BaseFragment
 import com.example.denis.kotlinmvp.ui.main.fragments.people.interactor.PeopleMVPInteractor
 import com.example.denis.kotlinmvp.ui.main.fragments.people.person.view.InsertPersonDialog
 import com.example.denis.kotlinmvp.ui.main.fragments.people.presenter.PeopleMVPPresenter
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.fragment_people.*
 import javax.inject.Inject
 
@@ -29,6 +28,9 @@ class PeopleFragment : BaseFragment(), PeopleMVPView {
 
     @Inject lateinit var presenter: PeopleMVPPresenter<PeopleMVPView, PeopleMVPInteractor>
 
+    @Inject lateinit var adapter: PeopleAdapter
+
+    @Inject lateinit var layoutManager: LinearLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         presenter.onAttach(this)
@@ -42,9 +44,17 @@ class PeopleFragment : BaseFragment(), PeopleMVPView {
         fab.setOnClickListener {
             showDialog(InsertPersonDialog.newInstance(), InsertPersonDialog.TAG)
         }
+
+        recyclerView.layoutManager = layoutManager
+        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, layoutManager.orientation))
+        recyclerView.adapter = adapter
     }
 
     override fun showDialog(dialog: DialogFragment, tag: String) {
         dialog.show(getBaseActivity()?.supportFragmentManager, tag)
+    }
+
+    override fun displayPeople(array: ArrayList<Person>) {
+        adapter.updateArray(array)
     }
 }

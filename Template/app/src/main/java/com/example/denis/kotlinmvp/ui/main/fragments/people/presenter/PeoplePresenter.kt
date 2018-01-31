@@ -1,6 +1,7 @@
 package com.example.denis.kotlinmvp.ui.main.fragments.people.presenter
 
 import android.util.Log
+import com.example.denis.kotlinmvp.model.database.repository.person.Person
 import com.example.denis.kotlinmvp.ui.base.presenter.BasePresenter
 import com.example.denis.kotlinmvp.ui.main.fragments.people.interactor.PeopleMVPInteractor
 import com.example.denis.kotlinmvp.ui.main.fragments.people.view.PeopleMVPView
@@ -29,9 +30,7 @@ class PeoplePresenter<V: PeopleMVPView, I : PeopleMVPInteractor>
                 it.getPersons()
             }.compose(schedulerProvider.ioToMainObservableScheduler())
                     .subscribe {
-                        for(item in it) {
-                            Log.d(TAG, "$item")
-                        }
+                        getView()?.displayPeople(it as ArrayList<Person>)
                     }
         }
     }

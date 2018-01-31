@@ -1,6 +1,7 @@
 package com.example.denis.kotlinmvp.ui.main.fragments.people.view
 
 import android.support.v4.app.DialogFragment
+import com.example.denis.kotlinmvp.model.database.repository.person.Person
 import com.example.denis.kotlinmvp.ui.base.view.MVPView
 
 /**
@@ -8,4 +9,6 @@ import com.example.denis.kotlinmvp.ui.base.view.MVPView
  */
 interface PeopleMVPView : MVPView {
     fun showDialog(dialog: DialogFragment, tag: String)
+
+    fun displayPeople(array: ArrayList<Person>)
 }
