@@ -10,6 +10,8 @@ import com.example.denis.kotlinmvp.R
 import com.example.denis.kotlinmvp.ui.base.view.BaseDialog
 import com.example.denis.kotlinmvp.ui.main.fragments.people.person.interactor.InsertPersonMVPInteractor
 import com.example.denis.kotlinmvp.ui.main.fragments.people.person.presenter.InsertPersonMVPPresenter
+import kotlinx.android.synthetic.main.dialog_insert_person.*
+import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
 /**
@@ -26,6 +28,7 @@ class InsertPersonDialog : BaseDialog(), InsertPersonMVPView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onAttach(this)
+        setUp()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -38,5 +41,28 @@ class InsertPersonDialog : BaseDialog(), InsertPersonMVPView {
         dialog.window?.setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
 
         return dialog
+    }
+
+    private fun setUp() {
+        cancel.setOnClickListener {
+            closeDialog()
+        }
+
+        add.setOnClickListener {
+
+            val ageLong: Int? = try {
+                "${age.text.trim()}".toInt()
+            } catch (e: Exception) { null }
+
+            presenter.onButtonAddClicked(name.text.trim().toString(), ageLong)
+        }
+    }
+
+    override fun showToast(toast: Int) {
+        toast(toast)
+    }
+
+    override fun closeDialog() {
+        dismissDialog(TAG)
     }
 }

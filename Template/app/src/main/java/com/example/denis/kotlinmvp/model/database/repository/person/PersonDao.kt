@@ -12,8 +12,8 @@ interface PersonDao {
     @Insert
     fun insert(personId: PersonId): Long
 
-    @Query("SELECT person.id, name.name, age.age FROM person " +
-            "INNER JOIN name ON person.nameId = name.id " +
-            "INNER JOIN age ON person.ageId = age.id ")
+    @Query("SELECT person_id.id, name.name, age.age FROM person_id " +
+            "INNER JOIN name ON person_id.nameId = name.id " +
+            "INNER JOIN age ON person_id.ageId = age.id ")
     fun getAllPerson(): List<Person>
 }

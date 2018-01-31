@@ -1,9 +1,11 @@
 package com.example.denis.kotlinmvp.ui.main.fragments.people.presenter
 
+import android.util.Log
 import com.example.denis.kotlinmvp.ui.base.presenter.BasePresenter
 import com.example.denis.kotlinmvp.ui.main.fragments.people.interactor.PeopleMVPInteractor
 import com.example.denis.kotlinmvp.ui.main.fragments.people.view.PeopleMVPView
 import com.example.denis.kotlinmvp.util.SchedulerProvider
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -14,4 +16,23 @@ class PeoplePresenter<V: PeopleMVPView, I : PeopleMVPInteractor>
 @Inject internal constructor(interactor: I, schedulerProvider: SchedulerProvider, disposable: CompositeDisposable)
     : BasePresenter<V, I>(interactor, schedulerProvider, disposable), PeopleMVPPresenter<V, I> {
 
+    private val TAG = "PeoplePresenter"
+
+    override fun onAttach(view: V?) {
+        super.onAttach(view)
+        getPersons()
+    }
+
+    private fun getPersons() {
+        interactor?.let {
+            Observable.fromCallable {
+                it.getPersons()
+            }.compose(schedulerProvider.ioToMainObservableScheduler())
+                    .subscribe {
+                        for(item in it) {
+                            Log.d(TAG, "$item")
+                        }
+                    }
+        }
+    }
 }

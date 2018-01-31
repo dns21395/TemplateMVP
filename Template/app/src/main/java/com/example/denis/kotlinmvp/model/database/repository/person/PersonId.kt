@@ -9,7 +9,7 @@ import com.example.denis.kotlinmvp.model.database.repository.name.Name
 /**
  * Created by denis on 31/01/2018.
  */
-@Entity(tableName = "person",
+@Entity(tableName = "person_id",
         foreignKeys =
         [
             (ForeignKey(entity = Name::class,
@@ -24,6 +24,6 @@ import com.example.denis.kotlinmvp.model.database.repository.name.Name
         ])
 data class PersonId(
         @PrimaryKey(autoGenerate = true)
-        val id: Int,
-        val nameId: Int,
-        val ageId: Int)
+        val id: Long,
+        val nameId: Long,
+        val ageId: Long)

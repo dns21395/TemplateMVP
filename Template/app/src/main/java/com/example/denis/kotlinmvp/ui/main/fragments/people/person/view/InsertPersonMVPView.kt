@@ -7,5 +7,7 @@ import com.example.denis.kotlinmvp.ui.base.view.MVPView
  * Created by denis on 31/01/2018.
  */
 interface InsertPersonMVPView : MVPView {
+    fun showToast(toast: Int)
 
+    fun closeDialog()
 }

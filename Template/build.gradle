@@ -34,4 +34,5 @@ ext {
     systembartint = '1.0.3'
     supportLibraryVersion = '27.0.2'
     picassoVersion = '2.5.2'
+    anko_version = '0.10.4'
 }

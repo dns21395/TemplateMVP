@@ -10,6 +10,6 @@ import com.example.denis.kotlinmvp.model.database.base.BaseDao
  */
 @Dao
 interface NameDao : BaseDao<Name> {
-    @Query("SELECT * FROM names")
+    @Query("SELECT * FROM name")
     fun loadAll(): List<Name>
 }
