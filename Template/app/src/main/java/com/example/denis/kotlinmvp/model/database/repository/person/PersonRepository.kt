@@ -27,6 +27,10 @@ class PersonRepository
     override fun removePerson(person: Person) {
         val personId = personDao.findPersonById(person.id)
         personDao.delete(personId)
+        val name = nameDao.getName(personId.nameId)
+        nameDao.delete(name)
+        val age = ageDao.getAge(personId.ageId)
+        ageDao.delete(age)
     }
 
 
