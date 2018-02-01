@@ -1,6 +1,7 @@
 package com.example.denis.kotlinmvp.model.database.repository.person
 
 import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import io.reactivex.Flowable
@@ -18,4 +19,10 @@ interface PersonDao {
             "INNER JOIN age ON person_id.ageId = age.id " +
             "ORDER BY person_id.id DESC")
     fun getAllPerson(): Flowable<List<Person>>
+
+    @Query("SELECT * FROM person_id where id = :personId")
+    fun findPersonById(personId: Long): PersonId
+
+    @Delete
+    fun delete(personId: PersonId)
 }

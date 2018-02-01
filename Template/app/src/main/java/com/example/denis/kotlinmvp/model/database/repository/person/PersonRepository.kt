@@ -24,4 +24,10 @@ class PersonRepository
         personDao.insert(PersonId(0, nameId, ageId))
     }
 
+    override fun removePerson(person: Person) {
+        val personId = personDao.findPersonById(person.id)
+        personDao.delete(personId)
+    }
+
+
 }

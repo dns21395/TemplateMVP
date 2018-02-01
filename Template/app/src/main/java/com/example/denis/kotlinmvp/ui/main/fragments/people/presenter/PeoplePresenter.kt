@@ -17,6 +17,7 @@ class PeoplePresenter<V: PeopleMVPView, I : PeopleMVPInteractor>
 @Inject internal constructor(interactor: I, schedulerProvider: SchedulerProvider, disposable: CompositeDisposable)
     : BasePresenter<V, I>(interactor, schedulerProvider, disposable), PeopleMVPPresenter<V, I> {
 
+
     private val TAG = "PeoplePresenter"
 
     override fun onAttach(view: V?) {
@@ -31,6 +32,17 @@ class PeoplePresenter<V: PeopleMVPView, I : PeopleMVPInteractor>
                     .subscribe {
                         getView()?.displayPeople(it as ArrayList<Person>)
                     }
+        }
+    }
+
+    override fun removePerson(person: Person) {
+        interactor?.let {
+            compositeDisposable.add(
+                    Observable.fromCallable {
+                        it.removePerson(person)
+                    }.compose(schedulerProvider.ioToMainObservableScheduler())
+                            .subscribe()
+            )
         }
     }
 }

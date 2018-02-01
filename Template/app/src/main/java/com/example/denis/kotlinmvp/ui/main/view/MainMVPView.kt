@@ -8,4 +8,6 @@ import com.example.denis.kotlinmvp.ui.base.view.MVPView
  */
 interface MainMVPView : MVPView {
     fun updateFrameLayout(fragment: Fragment)
+
+    fun updateTitle(stringId: Int)
 }

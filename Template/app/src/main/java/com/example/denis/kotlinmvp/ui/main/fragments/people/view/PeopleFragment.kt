@@ -19,7 +19,7 @@ import javax.inject.Inject
 /**
  * Created by denis on 30/01/2018.
  */
-class PeopleFragment : BaseFragment(), PeopleMVPView {
+class PeopleFragment : BaseFragment(), PeopleMVPView, PeopleAdapter.Callback {
 
 
     companion object {
@@ -31,6 +31,7 @@ class PeopleFragment : BaseFragment(), PeopleMVPView {
     @Inject lateinit var adapter: PeopleAdapter
 
     @Inject lateinit var layoutManager: LinearLayoutManager
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         presenter.onAttach(this)
@@ -48,6 +49,8 @@ class PeopleFragment : BaseFragment(), PeopleMVPView {
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, layoutManager.orientation))
         recyclerView.adapter = adapter
+        adapter.callback = this
+        adapter.itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     override fun showDialog(dialog: DialogFragment, tag: String) {
@@ -57,4 +60,10 @@ class PeopleFragment : BaseFragment(), PeopleMVPView {
     override fun displayPeople(array: ArrayList<Person>) {
         adapter.updateArray(array)
     }
+
+    override fun onRemovePerson(person: Person) {
+        presenter.removePerson(person)
+    }
+
+
 }

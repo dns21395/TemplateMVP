@@ -1,5 +1,6 @@
 package com.example.denis.kotlinmvp.ui.main.fragments.people
 
+import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import com.example.denis.kotlinmvp.ui.main.fragments.people.interactor.PeopleInteractor
 import com.example.denis.kotlinmvp.ui.main.fragments.people.interactor.PeopleMVPInteractor
@@ -24,7 +25,7 @@ class PeopleFragmentModule {
             : PeopleMVPPresenter<PeopleMVPView, PeopleMVPInteractor> = presenter
 
     @Provides
-    internal fun providePeopleAdapter(): PeopleAdapter = PeopleAdapter()
+    internal fun providePeopleAdapter(context: Context): PeopleAdapter = PeopleAdapter(context)
 
     @Provides
     internal fun provideLayoutManager(fragment: PeopleFragment): LinearLayoutManager = LinearLayoutManager(fragment.context)

@@ -12,6 +12,10 @@ import javax.inject.Inject
  */
 class PeopleInteractor @Inject internal constructor(private val personRepo: PersonRepo, preferenceHelper: PreferenceHelper)
     : BaseInteractor(preferenceHelper), PeopleMVPInteractor {
+    override fun removePerson(person: Person) {
+        personRepo.removePerson(person)
+    }
+
     override fun getPersons(): Flowable<List<Person>> = personRepo.getAllPerson()
 
 }

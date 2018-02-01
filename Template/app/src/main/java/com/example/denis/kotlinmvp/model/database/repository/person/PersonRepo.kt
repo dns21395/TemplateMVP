@@ -9,4 +9,6 @@ interface PersonRepo {
     fun getAllPerson(): Flowable<List<Person>>
 
     fun insertPerson(person: Person)
+
+    fun removePerson(person: Person)
 }

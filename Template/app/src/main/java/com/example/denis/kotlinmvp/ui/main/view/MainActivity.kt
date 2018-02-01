@@ -71,9 +71,18 @@ class MainActivity : BaseActivity(), MainMVPView, HasSupportFragmentInjector, Na
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.applications -> updateFrameLayout(ApplicationFragment.newInstance())
-            R.id.gallery -> presenter.onDrawerOptionGallery()
-            R.id.people -> updateFrameLayout(PeopleFragment.newInstance())
+            R.id.applications -> {
+                updateFrameLayout(ApplicationFragment.newInstance())
+                updateTitle(R.string.applications)
+            }
+            R.id.gallery -> {
+                presenter.onDrawerOptionGallery()
+                updateTitle(R.string.gallery)
+            }
+            R.id.people -> {
+                updateFrameLayout(PeopleFragment.newInstance())
+                updateTitle(R.string.people)
+            }
         }
         drawer.closeDrawers()
         return false
@@ -87,6 +96,10 @@ class MainActivity : BaseActivity(), MainMVPView, HasSupportFragmentInjector, Na
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == PermissionManager.REQUEST_CODE) presenter.onDrawerOptionGallery()
+    }
+
+    override fun updateTitle(stringId: Int) {
+        toolbarTitle.text = getString(stringId)
     }
 
 

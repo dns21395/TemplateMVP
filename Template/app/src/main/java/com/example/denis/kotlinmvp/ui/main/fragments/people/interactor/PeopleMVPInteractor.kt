@@ -9,4 +9,6 @@ import io.reactivex.Flowable
  */
 interface PeopleMVPInteractor : MVPInteractor {
     fun getPersons(): Flowable<List<Person>>
+
+    fun removePerson(person: Person)
 }
